@@ -93,12 +93,12 @@ ${chalk.grey('——————————————————')}`
       if (isPushConfirmedByUser && !isCancel(isPushConfirmedByUser)) {
         const pushSpinner = spinner();
 
-        pushSpinner.start(`Running \`git push ${remotes[0]}\``);
-
         const { stdout: branchName } = await execa('git', [
           'branch',
           '--show-current'
         ]);
+
+        pushSpinner.start(`Running \`git push ${remotes[0]}\` ${branchName}`);
 
         const { stdout } = await execa('git', [
           'push',
