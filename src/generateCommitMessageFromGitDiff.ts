@@ -88,6 +88,7 @@ export const generateCommitMessageWithChatCompletion = async (
   diff: string
 ): Promise<string | GenerateCommitMessageError> => {
   try {
+    const prefix = config?.prefix || '';
     if (tokenCount(diff) >= MAX_REQ_TOKENS) {
       const commitMessagePromises = getCommitMsgsPromisesFromFileDiffs(
         diff,
@@ -96,7 +97,7 @@ export const generateCommitMessageWithChatCompletion = async (
 
       const commitMessages = await Promise.all(commitMessagePromises);
 
-      return commitMessages.join('\n\n');
+      return prefix + commitMessages.join('\n\n');
     } else {
       const messages = generateCommitMessageChatCompletionPrompt(diff);
 
@@ -105,7 +106,7 @@ export const generateCommitMessageWithChatCompletion = async (
       if (!commitMessage)
         return { error: GenerateCommitMessageErrorEnum.emptyMessage };
 
-      return commitMessage;
+      return prefix + commitMessage;
     }
   } catch (error) {
     return { error: GenerateCommitMessageErrorEnum.internalError };

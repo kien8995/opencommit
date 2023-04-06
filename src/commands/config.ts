@@ -13,7 +13,8 @@ export enum CONFIG_KEYS {
   OPENAI_BASE_PATH = 'OPENAI_BASE_PATH',
   description = 'description',
   emoji = 'emoji',
-  language = 'language'
+  language = 'language',
+  prefix = 'prefix'
 }
 
 export enum CONFIG_MODES {
@@ -84,6 +85,15 @@ export const configValidators = {
   [CONFIG_KEYS.OPENAI_BASE_PATH](value: any) {
     validateConfig(
       CONFIG_KEYS.OPENAI_BASE_PATH,
+      typeof value == 'string',
+      `${value} is not supported yet`
+    );
+    return value;
+  },
+
+  [CONFIG_KEYS.prefix](value: any) {
+    validateConfig(
+      CONFIG_KEYS.prefix,
       typeof value == 'string',
       `${value} is not supported yet`
     );
