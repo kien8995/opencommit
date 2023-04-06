@@ -98,7 +98,7 @@ ${chalk.grey('——————————————————')}`
           '--show-current'
         ]);
 
-        pushSpinner.start(`Running \`git push ${remotes[0]}\` ${branchName}`);
+        pushSpinner.start(`Running \`git push ${remotes[0]} ${branchName}\``);
 
         const { stdout } = await execa('git', [
           'push',
